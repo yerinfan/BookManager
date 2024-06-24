@@ -1,4 +1,4 @@
-package test;
+package BookTest;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,17 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import member.Member;
+import Book.JDBConnection;
 
-public class UpdateTest {
-
-	public static void main(String[] args) { // U
-		UpdateTest test = new UpdateTest();
-		test.updateMember(null);
-
+public class BookDelete {
+	public static void main(String[] args) {
+		BookDelete test = new BookDelete();
+		test.deleteBook(2);
 	}
 
-	public int updateMember(Member member) {
+	public int deleteBook(int no) {
+		int result = 1;
+
 		// DB 연결
 		Connection conn = getDBConnection();
 		if (conn != null) {
@@ -28,26 +28,17 @@ public class UpdateTest {
 		PreparedStatement pstmt = null;
 		ResultSet rSet = null;
 
-		// sql문 만들기
-		String sql = new StringBuilder().append("update member").append("set password = ?, nickname = ?")
-				.append("where no = ?").toString();
-
-		int result = 0;
+		// SQL문 만들기
+		String sql = "delete book where no = ?";
 
 		try {
-			// PreparedStatement 객체 생성
+			// preparedStatment 객체 생성 <- sql문
 			pstmt = conn.prepareStatement(sql);
-
-			// SQL문 매개변수에 값 추가
-			pstmt.setString(1, member.getPassword());
-			pstmt.setString(2, member.getNickname());
-			pstmt.setInt(3, member.getNo());
-
-			// SQL문 실행
+			// 파라미터 set
+			pstmt.setInt(1, no);
+			// 실행
 			result = pstmt.executeUpdate();
-			if (result == 1) {
-				System.out.println(result + "행이 수정되었습니다.");
-			}
+			System.out.println(result + "행이 삭제되었습니다.");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,7 +73,6 @@ public class UpdateTest {
 		}
 
 		return result;
-
 	}
 
 	Connection getDBConnection() {

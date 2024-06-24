@@ -1,20 +1,13 @@
-package test;
+package BookTest;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnTest {
-
-	private int no;	//회원번호
-	private String id;
-	private String password;
-	private String nickname;
-	private Date regdate;	
+public class DBConn {
 	
 	public static void main(String[] args) {
-		DBConnTest test = new DBConnTest();
+		DBConn test = new DBConn();
 
 		Connection conn = test.getDBConnection();
 		
@@ -55,5 +48,4 @@ public class DBConnTest {
 
 		return conn;
 	}
-
 }
