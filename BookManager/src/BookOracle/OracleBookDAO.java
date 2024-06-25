@@ -1,6 +1,7 @@
 package BookOracle;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import Book.Book;
@@ -73,7 +74,8 @@ public class OracleBookDAO implements BookDAO {
 		String sql = new StringBuilder()
 				.append("select * from book")
 				.toString();
-		Book book = null;
+		
+		List<Book> bookList = new ArrayList<>();
 		try {
 			// PreparedStatement 객체 생성
 			jdbc.pstmt = jdbc.conn.prepareStatement(sql);
@@ -85,11 +87,11 @@ public class OracleBookDAO implements BookDAO {
 
 			// 모든 데이터 행 가져오기
 			while (jdbc.rs.next()) {
-				book = new Book(jdbc.rs.getInt("no"),
+				bookList.add(new Book(jdbc.rs.getInt("no"),
 						jdbc.rs.getString("bookname"),
 						jdbc.rs.getString("author"),
 						jdbc.rs.getString("publisher"),
-						jdbc.rs.getInt("price"));
+						jdbc.rs.getInt("price")));
 			}
 
 		} catch (SQLException e) {
@@ -98,7 +100,7 @@ public class OracleBookDAO implements BookDAO {
 			// 자원 객체 닫기
 			jdbc.close();
 		}
-		return null;
+		return bookList;
 	}
 	
 	public Book selectBook(int no) {
@@ -137,7 +139,7 @@ public class OracleBookDAO implements BookDAO {
 			// 자원 객체 닫기
 			jdbc.close();
 		}
-		return null;
+		return book;
 	}
 
 	public int insertBook(Book book) {

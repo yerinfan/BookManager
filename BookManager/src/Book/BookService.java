@@ -13,8 +13,14 @@ public class BookService {
 		this.bookDao = BookDao;
 	}
 	
-	public boolean add(Book book) throws SQLException {
-		int result = bookDao.insertBook(book);
+	public boolean add(Book book){
+		int result = 0;
+		try {
+			result = bookDao.insertBook(book);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return (result == 1) ? true : false;
 	}

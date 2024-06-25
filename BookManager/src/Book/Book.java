@@ -17,6 +17,13 @@ public class Book {
 		this.price = price;
 	}
 
+	public Book(String bookname, String author, String publisher, int price) {
+		this.bookname = bookname;
+		this.author = author;
+		this.publisher = publisher;
+		this.price = price;
+	}
+	
 	public int getNo() {
 		return no;
 	}
@@ -59,7 +66,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [no=" + no + ", bookname=" + bookname + ", author=" + author + ", publisher=" + publisher
+		return "[no=" + no + ", bookname=" + bookname + ", author=" + author + ", publisher=" + publisher
 				+ ", price=" + price + "]";
 	}
 	
